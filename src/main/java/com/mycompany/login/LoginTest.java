@@ -14,7 +14,10 @@ import java.util.Scanner;
 public class LoginTest {
 
     public static void main(String[] args) {
+       
+        // Create an instance of the Login class to access user registration and login functionality
         Login system = new Login();
+        // Initialize the Scanner to capture user input from the console
         Scanner sc = new Scanner(System.in);
 
            // Keep asking for valid account creation details using a while loop
@@ -55,17 +58,25 @@ public class LoginTest {
             }
         }
  // Proceed to login if account creation is successful
-        System.out.println("Login:");
-        System.out.print("Enter username: ");
-        String loginUsername = sc.nextLine();
-        System.out.print("Enter password: ");
-        String loginPassword = sc.nextLine();
+    System.out.println("Login:");
 
-        // Attempt login
-        boolean loginStatus = system.loginUser(loginUsername, loginPassword);
-        
-        // Display login status message
-        String loginMessage = system.returnLoginStatus(loginStatus);
-        System.out.println(loginMessage);
+// Initialize loginStatus as false to start the loop
+    boolean loginStatus = false;
+
+// Keep prompting for username and password until login is successful
+    while (!loginStatus) {
+    System.out.print("Enter username: ");
+    String loginUsername = sc.nextLine();
+
+    System.out.print("Enter password: ");
+    String loginPassword = sc.nextLine();
+
+    // Attempt login
+    loginStatus = system.loginUser(loginUsername, loginPassword);
+
+    // Display login status message
+    String loginMessage = system.returnLoginStatus(loginStatus);
+    System.out.println(loginMessage);
+}
     }
 }
