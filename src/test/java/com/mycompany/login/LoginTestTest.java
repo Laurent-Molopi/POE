@@ -119,7 +119,7 @@ public class LoginTestTest {
     @Test
     public void testReturnLoginStatusFailure() {
         // Create an account
-        system.createAccount("kyl_1", "Ch&&sec@ke99!", "John", "Doe"); 
+        system.createAccount("kyl_1", "Ch&&secke9!", "John", "Doe"); 
         // Attempt login with wrong password
         boolean loginStatus = system.loginUser("kyl_1", "wrongpassword"); 
          // Get login message

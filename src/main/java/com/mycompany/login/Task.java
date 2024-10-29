@@ -8,7 +8,7 @@ package com.mycompany.login;
  *
  * @author south
  */
-public class Task {
+public class Task{
 
     private String taskName;
     private int taskNumber;

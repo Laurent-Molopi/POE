@@ -9,7 +9,7 @@ package com.mycompany.login;
  * @author south
  */
 public class Login {
-    // Declarations with private classes
+    // Declarations with private fields
     private String username;
     private String password;
     private String firstname;
@@ -18,14 +18,22 @@ public class Login {
     // Default constructor for the Login class
     public Login() {}
 
+    // Constructor for the Login class that initializes the user with a username, password, first name, and last name
+    public Login(String username, String password, String firstname, String lastname) {
+        this.username = username;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
     // Setter method for the user's first name
     public void setFirstName(String firstname) {
-        this.firstname = firstname;
+        this.firstname = firstname;  // Correctly assign the parameter to the field
     }
 
     // Setter method for the user's last name
     public void setLastName(String lastname) {
-        this.lastname = lastname;
+        this.lastname = lastname;  // Correctly assign the parameter to the field
     }
 
     // Getter method for the user's first name
@@ -77,7 +85,7 @@ public class Login {
             return "Username is not correctly formatted, please ensure that your username contains an underscore and is no more than 5 characters in length.";
         }
         if (!checkPasswordComplexity()) {
-            return "Password is not correctly formatted, please ensure that the password contains at least 8 characters, a capital letter, a number and a special character.";
+            return "Password is not correctly formatted, please ensure that the password contains at least 8 characters, a capital letter, a number, and a special character.";
         }
         return "Username successfully captured\nPassword successfully captured";
     }
@@ -96,11 +104,11 @@ public class Login {
     }
 
     // Method to create an account by setting the user's details: username, password, first name, and last name
-    public void createAccount(String username, String password, String firstName, String lastName) {
+    public void createAccount(String username, String password, String firstname, String lastname) {
         this.username = username;
         this.password = password;
-        this.firstname = firstName;
-        this.lastname = lastName;
+        this.firstname = firstname;
+        this.lastname = lastname;
         System.out.println("Account created successfully!");
     }
 }
