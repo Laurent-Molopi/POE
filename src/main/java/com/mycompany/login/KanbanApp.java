@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 public class KanbanApp {
 
     public static void main(String[] args) {
-        Login system = new Login();
+        Login Kanban = new Login();
         boolean isAccountCreated = false;
 
         JOptionPane.showMessageDialog(null, "Hi, please create an account");
@@ -16,29 +16,29 @@ public class KanbanApp {
             // Prompts for first name with exit check
             String firstName = JOptionPane.showInputDialog("Enter first name:");
             if (firstName == null) exitApp();  // Exit if "Cancel" or "X" is clicked
-            system.setFirstName(firstName);
+            Kanban.setFirstName(firstName);
 
             // Prompts for last name with exit check
             String lastName = JOptionPane.showInputDialog("Enter last name:");
             if (lastName == null) exitApp();
-            system.setLastName(lastName);
+            Kanban.setLastName(lastName);
 
             // Prompts for username with exit check
             String username = JOptionPane.showInputDialog("Enter username:");
             if (username == null) exitApp();
-            system.setUsername(username);
+            Kanban.setUsername(username);
 
             // Prompts for password with exit check
             String password = JOptionPane.showInputDialog("Enter password:");
             if (password == null) exitApp();
-            system.setPassword(password);
+            Kanban.setPassword(password);
 
             // Check account creation status
-            String registrationStatus = system.registerUser();
+            String registrationStatus = Kanban.registerUser();
             JOptionPane.showMessageDialog(null, registrationStatus);
 
             if (registrationStatus.contains("Username successfully captured") && registrationStatus.contains("Password successfully captured")) {
-                system.createAccount(username, password, firstName, lastName);
+                Kanban.createAccount(username, password, firstName, lastName);
                 isAccountCreated = true;
             }
         }
@@ -57,8 +57,8 @@ public class KanbanApp {
             if (loginPassword == null) exitApp();
 
             // Attempt login
-            loginStatus = system.loginUser(loginUsername, loginPassword);
-            String loginMessage = system.returnLoginStatus(loginStatus);
+            loginStatus = Kanban.loginUser(loginUsername, loginPassword);
+            String loginMessage = Kanban.returnLoginStatus(loginStatus);
             JOptionPane.showMessageDialog(null, loginMessage);
         }
 
@@ -87,59 +87,73 @@ public class KanbanApp {
         }
     }
 
-    // Method to add tasks
+  // Method to add tasks
     public static void addTasks() {
-        String numTasksString = JOptionPane.showInputDialog("How many tasks do you want to add?");
-        if (numTasksString == null) exitApp();
+    // Prompt the user to enter the number of tasks to add
+    String numTasksString = JOptionPane.showInputDialog("How many tasks do you want to add?");
+    if (numTasksString == null) exitApp();  // Exit if the user cancels
 
-        int numTasks = Integer.parseInt(numTasksString);
-        Task[] tasks = new Task[numTasks];
-        int totalDuration = 0;
+    int numTasks = Integer.parseInt(numTasksString);  // Convert input to integer
+    Task[] tasks = new Task[numTasks];  // Array to store task objects
+    int totalDuration = 0;  // Initialize total duration counter
 
-        for (int i = 0; i < numTasks; i++) {
-            String taskName = JOptionPane.showInputDialog("Enter task name:");
-            if (taskName == null) exitApp();
+    int i = 0;  // Task index counter
+    do {
+        // Prompt for task name
+        String taskName = JOptionPane.showInputDialog("Enter task name:");
+        if (taskName == null) exitApp();  // Exit if the user cancels
 
-            String taskDescription = JOptionPane.showInputDialog("Enter task description (less than 50 characters):");
-            if (taskDescription == null) exitApp();
-            while (taskDescription.length() > 50) {
+        // Prompt for task description, ensuring it is under 50 characters
+        String taskDescription;
+        do {
+            taskDescription = JOptionPane.showInputDialog("Enter task description (less than 50 characters):");
+            if (taskDescription == null) exitApp();  // Exit if the user cancels
+            if (taskDescription.length() > 50) {
                 JOptionPane.showMessageDialog(null, "Please enter a task description of less than 50 characters.");
-                taskDescription = JOptionPane.showInputDialog("Enter task description:");
-                if (taskDescription == null) exitApp();
             }
+        } while (taskDescription.length() > 50);  // Loop until valid description length is provided
 
-            String developerDetails = JOptionPane.showInputDialog("Enter developer's full name:");
-            if (developerDetails == null) exitApp();
+        // Prompt for developer details
+        String developerDetails = JOptionPane.showInputDialog("Enter developer's full name:");
+        if (developerDetails == null) exitApp();  // Exit if the user cancels
 
-            int taskDuration = -1;
-            while (taskDuration < 0) {
-                try {
-                    String durationString = JOptionPane.showInputDialog("Enter task duration (hours):");
-                    if (durationString == null) exitApp();
+        // Prompt for task duration, ensuring it is a positive integer
+        int taskDuration;
+        do {
+            String durationString = JOptionPane.showInputDialog("Enter task duration (hours):");
+            if (durationString == null) exitApp();  // Exit if the user cancels
 
-                    taskDuration = Integer.parseInt(durationString);
-                    if (taskDuration < 0) {
-                        JOptionPane.showMessageDialog(null, "Task duration must be a positive number.");
-                    }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid number for task duration.");
+            try {
+                taskDuration = Integer.parseInt(durationString);  // Parse the duration input
+                if (taskDuration < 0) {
+                    JOptionPane.showMessageDialog(null, "Task duration must be a positive number.");
                 }
+            } catch (NumberFormatException e) {  // Handle invalid input
+                JOptionPane.showMessageDialog(null, "Please enter a valid number for task duration.");
+                taskDuration = -1;  // Reset task duration for loop continuation
             }
+        } while (taskDuration < 0);  // Loop until a valid positive duration is provided
 
-            String[] statusOptions = {"To Do", "Doing", "Done"};
-            String taskStatus = (String) JOptionPane.showInputDialog(null, "Choose task status", "Task Status",
-                    JOptionPane.QUESTION_MESSAGE, null, statusOptions, statusOptions[0]);
-            if (taskStatus == null) exitApp();
+        // Prompt for task status selection from predefined options
+        String[] statusOptions = {"To Do", "Doing", "Done"};
+        String taskStatus = (String) JOptionPane.showInputDialog(null, "Choose task status", "Task Status",
+                JOptionPane.QUESTION_MESSAGE, null, statusOptions, statusOptions[0]);
+        if (taskStatus == null) exitApp();  // Exit if the user cancels
 
-            Task task = new Task(taskName, i, taskDescription, developerDetails, taskDuration, taskStatus);
-            tasks[i] = task;
-            totalDuration += task.returnTotalHours();
+        // Create a new Task object and add it to the tasks array
+        Task task = new Task(taskName, i, taskDescription, developerDetails, taskDuration, taskStatus);
+        tasks[i] = task;  // Store task in the array
+        totalDuration += task.returnTotalHours();  // Accumulate total duration
 
-            JOptionPane.showMessageDialog(null, task.printTaskDetails());
-        }
-        JOptionPane.showMessageDialog(null, "Total task duration: " + totalDuration + " hours");
-    }
+        // Display task details to the user
+        JOptionPane.showMessageDialog(null, task.printTaskDetails());
 
+        i++;  // Move to the next task
+    } while (i < numTasks);  // Loop until all tasks are added
+
+    // Display the total duration for all tasks
+    JOptionPane.showMessageDialog(null, "Total task duration: " + totalDuration + " hours");
+}
     // Method to exit the application
     private static void exitApp() {
         JOptionPane.showMessageDialog(null, "Goodbye!");

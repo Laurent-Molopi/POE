@@ -18,14 +18,6 @@ public class Login {
     // Default constructor for the Login class
     public Login() {}
 
-    // Constructor for the Login class that initializes the user with a username, password, first name, and last name
-    public Login(String username, String password, String firstname, String lastname) {
-        this.username = username;
-        this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
-
     // Setter method for the user's first name
     public void setFirstName(String firstname) {
         this.firstname = firstname;  // Correctly assign the parameter to the field
