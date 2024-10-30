@@ -24,28 +24,28 @@ public class LoginTestTest {
     public void testUsernameCorrectlyFormatted() {
          // Set a valid username
         system.setUsername("kyl_1");
-        assertTrue(system.checkUsername(), "Username should be correctly formatted"); 
+        assertTrue(system.checkusername(), "Username should be correctly formatted"); 
     }
 
     @Test
     public void testUsernameIncorrectlyFormatted() {
         // Set an invalid username
         system.setUsername("kyle!!!!!!!");
-        assertFalse(system.checkUsername(), "Username should be incorrectly formatted");
+        assertFalse(system.checkusername(), "Username should be incorrectly formatted");
     }
 
     @Test
     public void testPasswordMeetsComplexityRequirements() {
         // Set a valid password
         system.setPassword("Ch&&sec@ke99!"); 
-        assertTrue(system.checkPasswordComplexity(), "Password should meet complexity requirements"); 
+        assertTrue(system.checkPasswordcomplexity(), "Password should meet complexity requirements"); 
     }
 
     @Test
     public void testPasswordDoesNotMeetComplexityRequirements() {
         // Set an invalid password
         system.setPassword("password"); 
-        assertFalse(system.checkPasswordComplexity(), "Password should not meet "
+        assertFalse(system.checkPasswordcomplexity(), "Password should not meet "
                 + "complexity requirements");
     }
 
@@ -89,7 +89,7 @@ public class LoginTestTest {
     @Test
     public void testLoginSuccess() {
          // Create an account
-        system.createAccount("kyl_1", "Ch&&sec@ke99!", "John", "Doe");
+        system.CreatAccount("kyl_1", "Ch&&sec@ke99!", "John", "Doe");
          // Attempt login
         boolean loginStatus = system.loginUser("kyl_1", "Ch&&sec@ke99!");
         assertTrue(loginStatus, "Login should be successful with correct username and password.");
@@ -98,7 +98,7 @@ public class LoginTestTest {
     @Test
     public void testLoginFailure() {
         // Create an account
-        system.createAccount("kyl_1", "Ch&&sec@ke99!", "John", "Doe"); 
+        system.CreatAccount("kyl_1", "Ch&&sec@ke99!", "John", "Doe"); 
         // Attempt login with wrong password
         boolean loginStatus = system.loginUser("kyl_1", "wrongpassword"); 
         assertFalse(loginStatus, "Login should fail with incorrect password."); 
@@ -107,7 +107,7 @@ public class LoginTestTest {
     @Test
     public void testReturnLoginStatusSuccess() {
          // Create an account
-        system.createAccount("kyl_1", "Ch&&sec@ke99!", "John", "Doe");
+        system.CreatAccount("kyl_1", "Ch&&sec@ke99!", "John", "Doe");
         // Attempt login
         boolean loginStatus = system.loginUser("kyl_1", "Ch&&sec@ke99!"); 
         // Get login message
@@ -119,7 +119,7 @@ public class LoginTestTest {
     @Test
     public void testReturnLoginStatusFailure() {
         // Create an account
-        system.createAccount("kyl_1", "Ch&&secke9!", "John", "Doe"); 
+        system.CreatAccount("kyl_1", "Ch&&sec@ke99!", "John", "Doe"); 
         // Attempt login with wrong password
         boolean loginStatus = system.loginUser("kyl_1", "wrongpassword"); 
          // Get login message

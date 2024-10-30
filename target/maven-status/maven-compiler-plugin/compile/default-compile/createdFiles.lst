@@ -1,3 +1,2 @@
 com\mycompany\login\Login.class
-com\mycompany\login\KanbanApp.class
-com\mycompany\login\Task.class
+com\mycompany\login\LoginTest.class
