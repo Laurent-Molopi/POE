@@ -1,1 +1,3 @@
-com\mycompany\login\LoginTestTest.class
+com\mycompany\Main\TaskManagerTest.class
+com\mycompany\Main\TaskTest.class
+com\mycompany\Main\LoginTest.class
